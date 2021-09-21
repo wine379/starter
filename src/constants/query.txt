@@ -1,0 +1,31 @@
+MERGE(h:Household{
+    household_admin_notes: "New household",
+    household_block_name: "State house",
+    household_code: "1234567",
+    household_name: "Kambadzo",
+    is_poor_household: "NO",
+    is_vulnerable_household: "YES",
+    will_household_pay_full_for_oss: "YES",
+    household_plot_number: "44/25"}) WITH h
+
+MATCH(w:Ward{ward_code:"210"}), 
+    (a:Area{area_code:"216018"}), 
+    (x:AgeCategory{household_head_age_category_code:"HHAC003"}), 
+    (m:MainSourceOfLivelihood{main_source_of_livelihood_code:"MSOL007"}), 
+    (i:AverageMonthlyIncomeRange{average_monthly_income_range_code:"AMI004"}), 
+    (z:HouseholdStructureLocationZone{household_structure_location_zone_code:"HSLZ004"}), 
+    (l:Latrine{latrine_code:"LTN006"}) WITH h, w, a, x, m, i, z, l 
+
+    MERGE (w)-[:IS_WARD_FOR_HOUSEHOLD]-(h)
+    MERGE (a)-[:IS_AREA_FOR_HOUSEHOLD]->(h)
+    MERGE (x)-[:IS_HOUSEHOLD_HEAD_AGE_CATEGORY_FOR_HOUSEHOLD]->(h)
+    MERGE (m)-[:IS_MAIN_SOURCE_OF_LIVELIHOOD_FOR_HOUSEHOLD]->(h)
+    MERGE (i)-[:IS_AVERAGE_MONTHLY_INCOME_RANGE_FOR_HOUSEHOLD]->(h)
+    MERGE (z)-[:IS_HOUSEHOLD_STRUCTURE_LOCATION_ZONE_FOR_HOUSEHOLD]->(h)
+    MERGE (l)-[:IS_LATRINE_FOR_HOUSEHOLD]->(h) 
+    MERGE(p:Phone{phone: "+26566"})  WITH h, p
+    
+    MATCH(c:ContactCategory{contact_category_code:"CC003"}) WITH h, p, c
+
+    MERGE (c)-[:IS_CONTACT_CATEGORY_FOR_PHONE]->(p)
+    MERGE (p)-[:IS_PHONE_FOR_HOUSEHOLD]->(h)
