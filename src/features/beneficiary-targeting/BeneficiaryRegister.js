@@ -1,6 +1,6 @@
 import React from 'react';
 import { Row, Col} from 'react-bootstrap';
-import BTSearchElement from '../../components/beneficiary-targeting/BTSearchElement';
+import HouseholdSearchElement from '../../components/common/HouseholdSearchElement';
 import BTBeneficiariesElement from '../../components/beneficiary-targeting/BTBeneficiariesElement';
 
 
@@ -18,7 +18,7 @@ const BeneficiaryRegister = () => {
                             <Row>
                                 <Col lg={12}>
                                     {/* File path: */}
-                                    <BTSearchElement />
+                                    <HouseholdSearchElement />
                                 </Col>
                             </Row>
                             <Row>

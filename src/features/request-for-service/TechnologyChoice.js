@@ -1,11 +1,25 @@
 import React from 'react';
 import { Row, Col } from 'react-bootstrap';
-import RfSSearchElement from '../../components/request-for-service/RfSSearchElement';
+import { gql, useQuery } from '@apollo/client';
+
+import { enrolledHouseholdsVar } from '../../util/appCache';
+import * as Constants from '../../constants/AppConstants';
+import HouseholdSearchElement from '../../components/common/HouseholdSearchElement';
 import OSSModalProducts from '../../components/request-for-service/OSSModalProducts';
 import SelectionValidationElement from '../../components/request-for-service/SelectionValidationElement';
 import BeneficiaryStatusElement from '../../components/request-for-service/BeneficiaryStatusElement';
 
 const TechnologyChoice = () => {
+    const { data, loading, error } = useQuery(Constants.GET_HOUSEHOLDS_QUERY);
+
+    if (loading) return <Loader />;
+    if (error) return `Error! ${error.message}`;
+  
+    const resultData = data;
+    const resultHouseholds = resultData.households;
+    const enrolledHouseholds = resultHouseholds.filter((h) => h.enrollment_status === 'Enrolled')
+  
+    enrolledHouseholdsVar(enrolledHouseholds);
     
     return (
         <>     
@@ -19,7 +33,7 @@ const TechnologyChoice = () => {
                             <Row>
                                 <Col lg={12}>
                                     {/* File path: */}
-                                    <RfSSearchElement />
+                                    <HouseholdSearchElement />
                                 </Col>
                             </Row>
                         </div>

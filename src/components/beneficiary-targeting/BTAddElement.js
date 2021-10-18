@@ -142,12 +142,6 @@ const BTAddElement = () => {
                     values.householdCode = householdCode;
                     values.householdAdminNote = note;
 
-                    
-
-                    // if(!idData){
-                    //     console.log('id not found')
-                    // }
-
                     addHousehold({ 
                         variables: { 
                             ward: values.ward,

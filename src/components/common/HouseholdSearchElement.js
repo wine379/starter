@@ -4,11 +4,11 @@ import {Formik} from 'formik';
 import * as Yup from 'yup';
 
 //IMPORT COMPONETS
- import CustomSelectInput from '../../components/common/CustomSelectInput';
- import CustomTextInput  from '../../components/common/CustomTextInput';
- import AreaSelection from '../../components/common/AreaSelection';  
- import WardSelectionList from '../../components/common/WardSelectionList';
- import {householdSearchVariables} from '../../util/appCache';
+ import CustomSelectInput from './CustomSelectInput';
+ import CustomTextInput  from './CustomTextInput';
+ import AreaSelection from './AreaSelection';  
+ import WardSelectionList from './WardSelectionList';
+ import {householdsSearchOptionsVar} from '../../util/appCache';
 
  const BTSearchElement = () => {
 
@@ -30,8 +30,8 @@ import * as Yup from 'yup';
                         .matches(/^[0-9]+$/, "Must be only digits")
                 })}
                 onSubmit={(values, actions) => {
-                    householdSearchVariables(values)
-
+                    householdsSearchOptionsVar(values);
+                    
                     setTimeout(() => {
                     actions.setSubmitting(false);
                     }, 1000);
@@ -58,7 +58,7 @@ import * as Yup from 'yup';
                                                 <CustomTextInput onBlur={props.handleBlur} onChange={props.handleChange} value={props.values.phoneNumber} placeholder="Enter phone number" label="Phone number" name="phoneNumber"/>
                                                 <CustomTextInput onBlur={props.handleBlur} onChange={props.handleChange} value={props.values.householdCode} placeholder="Enter household code" label="Household code" name="householdCode"/>
                                             </Form.Row>
-                                            <Button variant="primary" type="submit">
+                                            <Button variant="primary" type="submit" className="mr-1">
                                                 {props.isSubmitting ? 'Search Beneficiary...' : 'Search Beneficiary'}
                                             </Button>
                                         </Form>

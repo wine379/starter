@@ -1,7 +1,7 @@
 import React from 'react';
 import { Row, Col} from 'react-bootstrap';
 import OSSWorksCompletionElement from '../../components/oss-works/OSSWorksCompletionElement';
-import OSSWorksCompletionSearchElement from '../../components/oss-works/OSSWorksCompletionSearchElement';
+import HouseholdSearchElement from '../../components/common/HouseholdSearchElement';
 
 const WorksComplete = () => {
     
@@ -17,7 +17,7 @@ const WorksComplete = () => {
                             <Row>
                                 <Col lg={12}>
                                     {/* File path: */}
-                                    <OSSWorksCompletionSearchElement />
+                                    <HouseholdSearchElement />
                                 </Col>
                             </Row>
                         </div>

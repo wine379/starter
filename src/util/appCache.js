@@ -1,8 +1,17 @@
 import {makeVar, InMemoryCache} from "@apollo/client";
 
-export const householdSearchVariables = makeVar();
+export const householdsSearchOptionsVar = makeVar();
 export const householdsVar = makeVar([]);
 export const householdsSearchResults = makeVar([]);
+
+export const newlyRegisteredHouseholdsVar = makeVar([]);
+export const approvedHouseholdsVar = makeVar([]);
+export const enrolledHouseholdsVar = makeVar([]);
+
+export const selectAllVar  = makeVar(false);
+
+export const checkedListAllVar = makeVar([]);
+export const householdsCheckedVar = makeVar();
 
 const appCache = new InMemoryCache({
     typePolicies: {
@@ -32,6 +41,46 @@ const appCache = new InMemoryCache({
 
               return existing ?? countryRef //Nullish coalescing operator
             }
+          },
+          checkedListAll: {
+              read() {
+                  return checkedListAllVar();
+              }
+          },
+          householdsChecked: {
+            read() {
+                return householdsCheckedVar();
+            }
+        },
+          households: {
+            read() {
+                return householdsVar();
+            }
+        },
+          newHouseholds: {
+              read() {
+                  return newlyRegisteredHouseholdsVar();
+              }
+          },
+          approvedHouseholds: {
+              read() {
+                  return approvedHouseholdsVar();
+              }
+          },
+          enrolledHouseholds: {
+              read() {
+                  return enrolledHouseholdsVar();
+              }
+          },
+          householdsSearchOptions: {
+              read() {
+                  return householdsSearchOptionsVar();
+              }
+          },
+          selectAll: {
+              read() {
+                  return selectAllVar();
+              }
           }
         }
       },
@@ -47,21 +96,6 @@ const appCache = new InMemoryCache({
             }
           }
         }
-      },
-      householdSearchFilterOptions: {
-        read() {
-          return householdSearchVariables();
-        }
-      },
-      households: {
-          read() {
-              return householdsVar();
-          }
-      },
-      householdsSearch: {
-          read() {
-            return householdsSearchResults();
-          }
       }
     }
   })

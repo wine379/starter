@@ -1,6 +1,6 @@
 import React from 'react';
 import { Row, Col} from 'react-bootstrap';
-import OSSWorksSearchElement from '../../components/oss-works/OSSWorksSearchElement';
+import HouseholdSearchElement from '../../components/common/HouseholdSearchElement';
 import WorksStartDateElement from '../../components/oss-works/WorksStartDateElement';
 import OSSWorksHHStartDatesElement from '../../components/oss-works/OSSWorksHHStartDatesElement';
 
@@ -18,7 +18,7 @@ const WorksStart = () => {
                             <Row>
                                 <Col lg={12}>
                                     {/* File path: */}
-                                    <OSSWorksSearchElement />
+                                    <HouseholdSearchElement />
                                 </Col>
                             </Row>
                         </div>

@@ -15,7 +15,7 @@ const selectionListGeneratorService = (optsArr) => {
   const items = optsArr;
   let list = [<option key={0}>Select area...</option>];
   items.map((item, i) => {
-      list.push(<option value={item.area_code} key={i+1}>{item.area_name}</option>);
+      list.push(<option value={item.area_name} key={i+1}>{item.area_name}</option>);
    } )
 
   return list

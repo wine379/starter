@@ -1,6 +1,6 @@
 import React from 'react';
 import { Row, Col} from 'react-bootstrap';
-import TechnologyApprovalSearchElement from '../../components/request-for-service/TechnologyApprovalSearchElement';
+import HouseholdSearchElement from '../../components/common/HouseholdSearchElement';
 import BeneficiaryApprovedTechnologyElement from '../../components/request-for-service/BeneficiaryApprovedTechnologyElement';
 
 const TechnologyApproval = () => {
@@ -17,7 +17,7 @@ const TechnologyApproval = () => {
                             <Row>
                                 <Col lg={12}>
                                     {/* File path: */}
-                                    <TechnologyApprovalSearchElement />
+                                    <HouseholdSearchElement />
                                 </Col>
                             </Row>
                         </div>

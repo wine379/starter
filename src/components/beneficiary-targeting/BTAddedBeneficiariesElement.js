@@ -1,39 +1,49 @@
 import React, {useCallback, useEffect} from 'react';
 import {Link} from "react-router-dom";
-import { Row, Col, Table, ButtonToolbar, Button} from 'react-bootstrap';
+import { Row, Col, Table, Form} from 'react-bootstrap';
 import { gql, useQuery } from '@apollo/client';
+import * as Icon from 'react-feather';
 
 //IMPORTING COMPONENTS
 import Loader from '../common/Loader';
+import * as Constants from '../../constants/AppConstants';
+import { selectAllVar } from '../../util/appCache';
 
-const GET_BENEFICIARIES_QUERY = gql`
-  query GetBeneficiaries {
-    Household {
-      wards {
-        ward_name
-      }
-      areas {
-        area_name
-      }
-      household_block_name
-      household_code
-      users {
-          user_name
-          first_name
-          last_name
-      }
-      phones {
-        phone
-      }
-    }
-  }
-`;
+
 
 const BTAddedBeneficiariesElement = () => {
-    const { loading, error, data } = useQuery(GET_BENEFICIARIES_QUERY);
+    const { data: householdsData, loading: householdsLoading, error: householdsError } = useQuery(Constants.GET_NEW_HOUSEHOLDS_QUERY);
+    const { data: selectAllData, loading: selectAllLoading, error: selectAllError } = useQuery(Constants.GET_SELECT_ALL_QUERY);
 
-    if (loading) return <Loader />;
-    if (error) return `Error! ${error.message}`;
+  if (householdsLoading) return <Loader />;
+  if (householdsError) return `Error! ${error.message}`;
+
+  const resultData = householdsData;
+  const newHouseholds = resultData.newHouseholds;
+
+  let selectionState = selectAllData.selectAll;
+
+  const handleSelected = () => {
+      const isSelected = selectAllData.selectAll
+      selectAllVar(!!!isSelected)
+    }
+
+  const handleApprove = (e) => {
+    e.preventDefault()
+      console.log("Approved");
+    }
+  const handleReject = (e) => {
+    e.preventDefault()
+      console.log("Reject");
+    }
+    const handleView = (e) => {
+        e.preventDefault()
+        console.log("View");
+        }
+    const handleDelete = (e) => {
+        e.preventDefault()
+            console.log("Delete");
+            }
 
     return(
         <Row>
@@ -47,29 +57,40 @@ const BTAddedBeneficiariesElement = () => {
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>City</th>
+                                    <th><Form.Check onChange={handleSelected} /></th>
                                     <th>Area</th>
                                     <th>Block</th>
                                     <th>HH Ref No.</th>
                                     <th>HH Name</th>
                                     <th>Contact No.</th>
+                                    <th>Erollment Status</th>
                                     <th className="text-center">Action</th> 
                                 </tr>
                             </thead>
                             <tbody>
-                                {data.Household.map((household, index) => (
+                                {newHouseholds.map((household, index) => (
                                     <tr key={index}>
                                         <td>{index + 1}</td>
-                                        <td>Lilongwe</td>
-                                        {household.areas.map((area, i) =>(<td key={i}>{area.area_name}</td>))}
+                                        <th><Form.Check  checked={selectionState} onChange={handleSelected} /></th>
+                                        <td>{household.area}</td>
                                         <td>{household.household_block_name}</td>
                                         <td>{household.household_code}</td>
-                                        {household.users.map((user, i) =>(<td key={i}>{user.first_name + ' ' + user.last_name}</td>))}
-                                        {household.phones.map((phone, i)=>(<td key={i}>{phone.phone}</td>))}
+                                        {household.users.map((user, i) =>(<td key={i}>{user.full_name}</td>))}
+                                        <td>{household.phone}</td>
+                                        <td>{household.enrollment_status}</td>
                                         <td>
-                                            <Button variant="secondary">
-                                                More..
-                                            </Button>
+                                            <a href="#" onClick= {handleApprove} >
+                                                <Icon.CheckCircle className="icon mr-1" />
+                                            </a>
+                                            <a href="#" onClick= {handleReject}>
+                                                <Icon.XCircle className="icon mr-1" />
+                                            </a>
+                                            <a href="#" onClick= {handleView} >
+                                                <Icon.Eye className="icon mr-1" />
+                                            </a>
+                                            <a href="#" onClick= {handleDelete}>
+                                                <Icon.Trash className="icon" />
+                                            </a>
                                         </td>
                                     </tr>
                                 ))}

@@ -1,5 +1,7 @@
 import React, {useState} from 'react'
 import { Switch, Route} from 'react-router-dom';
+import { householdsVar } from './util/appCache'
+import { gql, useQuery } from '@apollo/client'
 
 //IMPORT COMPONENTS
 
@@ -24,14 +26,19 @@ import CityProgress from './features/reports/CityProgress';
 import CaseRegister from './features/case-management/CaseRegister';
 import CaseStatus from './features/case-management/CaseStatus';
 import ResolvedCases from './features/case-management/ResolvedCases';
+import Loader from './components/common/Loader';
+import * as Constants from './constants/AppConstants';
 
 export default function App() {
-    const [state, setState] = useState({loading: false});
+  const { data, loading, error } = useQuery(Constants.FETCH_HOUSEHOLDS_QUERY);
 
-    let loader = null;
-    if (state.loading) {
-        loader = <Loader message="Loading..." />
-    }
+  if (loading) return <Loader />;
+  if (error) return `Error! ${error.message}`;
+
+  const resultData = data
+
+  householdsVar(resultData.Household)
+
   return (
         <>
             <Switch>

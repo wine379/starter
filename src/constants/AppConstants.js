@@ -8,7 +8,6 @@ export const REACT_APP_GRAPHQL_URI =  process.env.REACT_APP_GRAPHQL_URI || 'http
 export const FETCH_USERS_LIST_QUERY = `
   {
     User {
-      z
       first_name
       last_name
       phones {
@@ -141,6 +140,73 @@ export const LATRINES_QUERY = `
 `;
 
 //REACT APOLLO QUERIES
+
+export const FETCH_HOUSEHOLDS_QUERY = gql`
+  query FetchHouseholds{
+    Household {
+    ward
+    area
+    phone
+    household_code
+    household_block_name
+    users {
+      user_name
+      first_name
+      last_name
+      full_name @client
+      }
+    enrollment_status
+    }
+  }
+`;
+
+export const GET_HOUSEHOLDS_QUERY = gql`
+  query GetHouseholds{
+    households @client
+  }
+`;
+
+export const GET_NEW_HOUSEHOLDS_QUERY = gql`
+  query GetNewHouseholds{
+    newHouseholds @client
+  }
+`;
+
+export const GET_APPROVED_HOUSEHOLDS_QUERY = gql`
+  query GetApprovedHouseholds{
+    approvedHouseholds @client
+  }
+`;
+
+export const GET_ENROLLED_HOUSEHOLDS_QUERY = gql`
+  query GetEnrolledHouseholds{
+    enrolledHouseholds @client
+  }
+`;
+
+export const GET_HOUSEHOLDS_SEARCH_OPTIONS_QUERY = gql`
+  query GetHouseholdsSearchOptions{
+    householdsSearchOptions @client
+  }
+`;
+
+export const GET_SELECT_ALL_QUERY = gql`
+  query GetSelect{
+    selectAll @client
+  }
+`;
+
+export const GET_CHECKED_LIST_ALL_QUERY = gql`
+  query GetCheckedListAll{
+    checkedListAll @client
+  }
+`;
+
+export const GET_HOUSEHOLDS_CHECKED_QUERY = gql`
+  query GetHouseholdsChecked{
+    householdsChecked @client
+  }
+`;
 
 export const CREATE_BENEFICIARY_QUERY = gql`
   mutation CreateHousehold(
