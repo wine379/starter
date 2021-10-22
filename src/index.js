@@ -12,7 +12,7 @@ import App from './App'
 import './assets/css/style.css';
 import './assets/css/responsive.css';
 
-import appCache from './util/appCache'
+import appCache from './_utils/appCache';
 
 const client = new ApolloClient({ 
   uri: Constants.REACT_APP_GRAPHQL_URI || '/graphql',

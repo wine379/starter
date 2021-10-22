@@ -37,7 +37,7 @@ const appCache = new InMemoryCache({
                   return groupsVar();
               }
           },
-          filteredGroups: {
+          filteredGroupsBy: {
               read() {
                   return groupfilteredGroupsVarsVar();
               }

@@ -65,7 +65,7 @@ const Navigation = (props) => {
 
                 <Navbar.Collapse id="basic-navbar-nav">
                     
-                    <h3 style={{ color: 'blue' }}><b>The Lilongwe Water and Sanitation Project</b></h3>
+                    <h5 style={{ color: 'green' }}><b>COMSIP Integrated Management Information System</b></h5>
 
                     <Nav className="ml-auto right-nav">
                         <NavDropdown  
